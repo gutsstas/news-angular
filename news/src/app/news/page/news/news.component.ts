@@ -1,7 +1,7 @@
 import { INews } from './../../../core/interfaces/interfaces';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { DataService } from 'src/app/core/services/data.service';
 
 @Component({
@@ -9,16 +9,24 @@ import { DataService } from 'src/app/core/services/data.service';
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss'],
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent implements OnInit, OnDestroy {
   href!: string;
-  data$!: Observable<INews>;
+
+  data!: INews;
+  subscription!: Subscription;
 
   constructor(private router: Router, private dataService: DataService) {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.href = this.router.url;
-    console.log(this.router.url);
-    this.data$ = this.dataService.getCurrentNews(this.href);
-    this.dataService.getCurrentNews(this.href).subscribe((i) => console.log(i));
+    this.subscription = this.dataService.getCurrentNews(this.href).subscribe({
+      next: (res) => {
+        this.data = res;
+      },
+      error: () => this.router.navigateByUrl(''),
+    });
   }
 }

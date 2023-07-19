@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
-// body {
-//   width: 100vw;
-// }
+.photo.photo-first > img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.photo > img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+input[type="file"] label {
+  display: none;
+}

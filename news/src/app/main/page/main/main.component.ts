@@ -2,6 +2,7 @@ import { INews } from 'src/app/core/interfaces/interfaces';
 import { DataService } from './../../../core/services/data.service';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-main',
@@ -14,11 +15,13 @@ export class MainComponent implements OnInit, OnDestroy {
 
   sub: Subscription[] = [];
 
-  constructor(private dataService: DataService) {}
-
-  data: INews[] = [];
+  constructor(
+    public dataService: DataService,
+    public modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
+    this.dataService.getListLocalStorage();
     this.loadContent();
   }
 
@@ -38,7 +41,7 @@ export class MainComponent implements OnInit, OnDestroy {
   loadContent() {
     const data = this.dataService
       .getAllNews(this.page, this.pageSize)
-      .subscribe((res) => this.data.push(...res));
+      .subscribe();
     this.sub.push(data);
   }
 

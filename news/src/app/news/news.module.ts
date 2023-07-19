@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsComponent } from './page/news/news.component';
 import { RouterModule, Routes } from '@angular/router';
+import { SafePipe } from './pipes/safe.pipe';
 
 const routes: Routes = [
   { path: '', component: NewsComponent },
@@ -9,7 +10,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NewsComponent],
+  declarations: [NewsComponent, SafePipe],
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
