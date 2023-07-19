@@ -21,24 +21,26 @@
       formControlName="description"
       class="w-full border py-2 px-4 mb-5"
     />
-    <input
-      type="file"
-      name="myImage"
-      accept="image/png, image/gif, image/jpeg"
-      class="mb-2 self-start"
-      formControlName="img"
-      (change)="onFileChange($event)"
-    />
+    <p-fileUpload
+      mode="basic"
+      chooseLabel="Choose Photo"
+      name="demo[]"
+      [auto]="true"
+      url="https://www.primefaces.org/cdn/api/upload.php"
+      accept="image/*"
+      [maxFileSize]="3000000"
+      class="mb-4"
+      (onUpload)="onFileChange($event)"
+    ></p-fileUpload>
 
-    <input type="image" formControlName="image" />
-
-    <!-- <div formControlName="image"></div> -->
+    <span *ngIf="file">File was uploaded</span>
 
     <button
       type="submit"
-      class="py-2 px-6 text-xl bg-green-500 text-white mb-2"
-    >
-      Save
-    </button>
+      pButton
+      pRipple
+      label="Save"
+      class="p-button-success"
+    ></button>
   </form>
 </div>
