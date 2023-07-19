@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.photo.photo-first > img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.photo > img {
+  width: 100% !important;
+  height: auto !important;
+}
